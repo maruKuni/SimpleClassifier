@@ -3,24 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.SampleController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <center>
-      <Canvas height="600.0" width="800.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvasMain" height="700.0" onMouseReleased="#handleCanvasReleased" width="1130.0" BorderPane.alignment="CENTER" />
    </center>
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="125.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" text="Classify" />
-            <Button mnemonicParsing="false" text="Reset">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -30,6 +25,85 @@
          <padding>
             <Insets top="10.0" />
          </padding>
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="201.0" prefWidth="126.0">
+               <children>
+                  <Label text="各種設定" textOverrun="CENTER_WORD_ELLIPSIS" />
+                  <VBox prefHeight="54.0" prefWidth="126.0">
+                     <children>
+                        <Label text="次数" />
+                        <TextField fx:id="textFieldOrder" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="60.0" prefWidth="126.0">
+                     <children>
+                        <Label text="降下法" />
+                        <ComboBox fx:id="comboBoxGradDesc" onAction="#handleGradDescSelected" prefWidth="150.0" promptText="最急降下法" />
+                        <Label text="バッチサイズ" />
+                        <TextField fx:id="textFieldBatchSize" disable="true" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="66.0" prefWidth="126.0">
+                     <children>
+                        <Label text="学習率" />
+                        <ComboBox fx:id="comboBoxOptimizer" onAction="#handleLearningRateSelected" prefWidth="150.0" />
+                        <Label text="学種率（定数）" />
+                        <TextField fx:id="textFieldLearningRate" disable="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="89.0" prefWidth="126.0">
+               <children>
+                  <Label text="実行" />
+                  <VBox prefHeight="94.0" prefWidth="126.0">
+                     <children>
+                        <Label text="反復回数" />
+                        <TextField fx:id="textFieldIterateNum" />
+                        <VBox alignment="TOP_CENTER" prefHeight="14.0" prefWidth="126.0">
+                           <children>
+                              <Button fx:id="buttonDo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDoPressed" text="Do!" textAlignment="RIGHT" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="165.0" prefWidth="126.0" spacing="1.0">
+               <children>
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="リセット" />
+                  <Button fx:id="buttonConfigReset" mnemonicParsing="false" onAction="#handleConfigResetPressed" text="設定リセット">
+                     <VBox.margin>
+                        <Insets top="1.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="buttonPointReset" mnemonicParsing="false" onAction="#handlePointResetPressed" text="点リセット">
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="buttonGraphReset" mnemonicParsing="false" onAction="#handleGraphResetPressed" text="グラフリセット">
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="buttonResetAll" mnemonicParsing="false" onAction="#handleAllResetPressed" text="All">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="125.0" spacing="5.0">
+               <children>
+                  <Button fx:id="buttonSave" mnemonicParsing="false" onAction="#handleSavePressed" text="Save" />
+                  <Button fx:id="buttonLoad" mnemonicParsing="false" onAction="#handleLoadPressed" text="Load" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
       </VBox>
    </right>
 </BorderPane>
