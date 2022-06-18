@@ -13,6 +13,7 @@ public class SimpleClassifier {
         constant, Adam, AdaMax, AdaGrad
     }
 
+
     private ArrayList<LabeledPoint> points;
     private ArrayList<LabeledPoint> regularizedPoints;
     public double weight[];

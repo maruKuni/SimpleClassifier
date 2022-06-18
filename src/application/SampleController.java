@@ -74,9 +74,11 @@ public class SampleController implements Initializable {
     protected void handleDoPressed(ActionEvent e) {
         System.out.println("Do");
         if (classifier != null) {
+            disableConfig();
             System.out.println("next");
             final int iterate = Integer.parseInt(textFieldIterateNum.getText());
             classifier.classify(iterate);
+
         } else {
             System.out.println("initilize classifier");
             final int order = Integer.parseInt(textFieldOrder.getText());
@@ -102,6 +104,7 @@ public class SampleController implements Initializable {
 
     @FXML
     protected void handleConfigResetPressed(ActionEvent e) {
+        enableConfig();
         textFieldOrder.setText("3");
         textFieldIterateNum.setText("100");
         textFieldBatchSize.setText("10");
@@ -121,6 +124,7 @@ public class SampleController implements Initializable {
 
     @FXML
     protected void handleGraphResetPressed(ActionEvent e) {
+        enableConfig();
         clearCanvas();
         drawAxis();
         redrawPoints();
@@ -276,6 +280,28 @@ public class SampleController implements Initializable {
             return Optimize.AdaGrad;
         default:
             return Optimize.Adam;
+        }
+    }
+
+    /**学習中は設定用のコンポーネントを無効に*/
+    private void disableConfig() {
+        textFieldOrder.setDisable(true);
+        textFieldLearningRate.setDisable(true);
+        textFieldBatchSize.setDisable(true);
+        comboBoxGradDesc.setDisable(true);
+        comboBoxOptimizer.setDisable(true);
+    }
+
+    /**コンポーネント有効化*/
+    private void enableConfig() {
+        textFieldOrder.setDisable(false);
+        comboBoxGradDesc.setDisable(false);
+        comboBoxOptimizer.setDisable(false);
+        if (strToGradDesc(comboBoxGradDesc.getSelectionModel().getSelectedItem()) == GradDesc.miniBatch) {
+            textFieldBatchSize.setDisable(false);
+        }
+        if (strToOptimizer(comboBoxOptimizer.getSelectionModel().getSelectedItem()) == Optimize.constant) {
+            textFieldLearningRate.setDisable(false);
         }
     }
 }
