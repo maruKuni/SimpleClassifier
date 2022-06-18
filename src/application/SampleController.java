@@ -119,6 +119,7 @@ public class SampleController implements Initializable {
         points.clear();
         clearCanvas();
         drawAxis();
+        enableConfig();
         classifier = null;
     }
 
@@ -128,6 +129,7 @@ public class SampleController implements Initializable {
         clearCanvas();
         drawAxis();
         redrawPoints();
+        enableConfig();
         classifier = null;
     }
 
@@ -136,6 +138,7 @@ public class SampleController implements Initializable {
         points.clear();
         clearCanvas();
         drawAxis();
+        enableConfig();
         classifier = null;
     }
 
@@ -156,6 +159,8 @@ public class SampleController implements Initializable {
 
     @FXML
     protected void handleLoadPressed(ActionEvent e) throws IOException {
+        clearCanvas();
+        drawAxis();
         ArrayList<LabeledPoint> newPoints = new ArrayList<>();
         FileChooser fc = new FileChooser();
         fc.setTitle("Load points from CSV");
