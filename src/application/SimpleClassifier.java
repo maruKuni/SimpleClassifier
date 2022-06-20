@@ -13,9 +13,6 @@ public class SimpleClassifier {
         constant, Adam, AdaMax, AdaGrad
     }
 
-    private enum State {
-        Forward, Grad, Update
-    }
 
     private ArrayList<LabeledPoint> points;
     private ArrayList<LabeledPoint> regularizedPoints;
@@ -23,7 +20,7 @@ public class SimpleClassifier {
     private double grad[];
     private GradDesc gd;
     private Optimize lr;
-    private int order, bathcSize, t = 1;
+    private int order, bathcSize;
     private double eta, xStd, yStd, xMean, yMean;
     private final Random rnd;
     private final Optimizer opt;

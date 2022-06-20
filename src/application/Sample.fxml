@@ -48,7 +48,7 @@
                         <Label text="学習率" />
                         <ComboBox fx:id="comboBoxOptimizer" onAction="#handleLearningRateSelected" prefWidth="150.0" />
                         <Label text="学種率（定数）" />
-                        <TextField fx:id="textFieldLearningRate" disable="true" />
+                        <TextField fx:id="textFieldLearningRate" />
                      </children>
                   </VBox>
                </children>

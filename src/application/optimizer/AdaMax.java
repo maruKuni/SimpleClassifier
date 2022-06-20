@@ -22,6 +22,7 @@ public class AdaMax implements Optimizer {
             ret[i] = alpha / (1 - Math.pow(beta1, t)) * m[i] / v[i];
             t += 1.0;
         }
+        t += 1;
         return ret;
     }
 }
