@@ -74,6 +74,7 @@ public class SampleController implements Initializable {
     @FXML
     protected void handleDoPressed(ActionEvent e) {
         System.out.println("Do");
+        disableConfig();
         if (classifier != null) {
             disableConfig();
             System.out.println("next");
@@ -86,7 +87,10 @@ public class SampleController implements Initializable {
             final int iterate = Integer.parseInt(textFieldIterateNum.getText());
             final GradDesc gd = strToGradDesc(comboBoxGradDesc.getSelectionModel().getSelectedItem());
             final Optimize lr = strToOptimizer(comboBoxOptimizer.getSelectionModel().getSelectedItem());
-            SimpleClassifier.Builder builder = new SimpleClassifier.Builder(points, order, gd, lr);
+            final double l1 = Double.parseDouble(textFieldL1Coff.getText());
+            final double l2 = Double.parseDouble(textFieldL2Coff.getText());
+
+            SimpleClassifier.Builder builder = new SimpleClassifier.Builder(points, order, gd, lr, l1, l2);
             if (gd == GradDesc.miniBatch)
                 builder = builder.batchSize(Integer.parseInt(textFieldBatchSize.getText()));
             if (lr == Optimize.constant)
@@ -98,9 +102,6 @@ public class SampleController implements Initializable {
         drawAxis();
         redrawPoints();
         drawGraph();
-        for (int i = 0; i < classifier.weight.length; i++)
-            System.out.print(classifier.weight[i] + ",");
-        System.out.println();
     }
 
     @FXML

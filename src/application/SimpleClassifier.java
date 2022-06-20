@@ -13,7 +13,6 @@ public class SimpleClassifier {
         constant, Adam, AdaMax, AdaGrad
     }
 
-
     private ArrayList<LabeledPoint> points;
     private ArrayList<LabeledPoint> regularizedPoints;
     public double weight[];
@@ -24,6 +23,7 @@ public class SimpleClassifier {
     private double eta, xStd, yStd, xMean, yMean;
     private final Random rnd;
     private final Optimizer opt;
+    private double l1, l2;
 
     public SimpleClassifier(Builder builder) {
         rnd = new Random(System.currentTimeMillis());
@@ -33,7 +33,8 @@ public class SimpleClassifier {
         this.lr = builder.lr;
         this.bathcSize = builder.bathcSize;
         this.eta = builder.eta;
-
+        this.l1 = builder.l1;
+        this.l2 = builder.l2;
         weight = new double[order + 1];
         grad = new double[order + 1];
 
@@ -68,12 +69,15 @@ public class SimpleClassifier {
         private Optimize lr;
         private int order, bathcSize = 0;
         private double eta = 0;
+        private double l1 = 0.1, l2 = 0.1;
 
-        public Builder(ArrayList<LabeledPoint> points, int order, GradDesc gd, Optimize lr) {
+        public Builder(ArrayList<LabeledPoint> points, int order, GradDesc gd, Optimize lr, double l1, double l2) {
             this.points = points;
             this.gd = gd;
             this.lr = lr;
             this.order = order;
+            this.l1 = l1;
+            this.l2 = l2;
         }
 
         public Builder eta(double val) {
@@ -149,8 +153,10 @@ public class SimpleClassifier {
     }
 
     private double calcGrad(LabeledPoint p, int index) {
+        double isBias = (index == 0) ? 0 : 1;
         return -Math.pow(p.getX(), (double) weight.length - index - 1)
-                * (Math.max(p.getLabel(), 0) - sigmoid(p.getY() - (calcFunc(p.getX() * xStd + xMean) - yMean) / yStd));
+                * (Math.max(p.getLabel(), 0) - sigmoid(p.getY() - (calcFunc(p.getX() * xStd + xMean) - yMean) / yStd))
+                - weight[index] * l2 * isBias - Math.signum(weight[index]) * l1 * isBias;
     }
 
     private void forwardGradDesc() {
