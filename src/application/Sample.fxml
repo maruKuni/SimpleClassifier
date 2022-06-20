@@ -53,6 +53,17 @@
                   </VBox>
                </children>
             </VBox>
+            <VBox prefHeight="50.0" prefWidth="126.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Label text="L1正則化" />
+                  <TextField fx:id="textFieldL1Coff" text="0" />
+                  <Label text="L2正則化" />
+                  <TextField fx:id="textFieldL2Coff" text="0" />
+               </children>
+            </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="89.0" prefWidth="126.0">
                <children>
                   <Label text="実行" />
