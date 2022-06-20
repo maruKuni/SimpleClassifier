@@ -297,6 +297,8 @@ public class SampleController implements Initializable {
         textFieldBatchSize.setDisable(true);
         comboBoxGradDesc.setDisable(true);
         comboBoxOptimizer.setDisable(true);
+        textFieldL1Coff.setDisable(true);
+        textFieldL2Coff.setDisable(true);
     }
 
     /**コンポーネント有効化*/
@@ -310,5 +312,7 @@ public class SampleController implements Initializable {
         if (strToOptimizer(comboBoxOptimizer.getSelectionModel().getSelectedItem()) == Optimize.constant) {
             textFieldLearningRate.setDisable(false);
         }
+        textFieldL1Coff.setDisable(false);
+        textFieldL2Coff.setDisable(false);
     }
 }
