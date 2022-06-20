@@ -26,7 +26,8 @@ public class SampleController implements Initializable {
     private Button buttonResetAll, buttonGraphReset, buttonPointReset, buttonConfigReset, buttonDo, buttonSave,
             buttonLoad;
     @FXML
-    private TextField textFieldOrder, textFieldIterateNum, textFieldBatchSize, textFieldLearningRate;
+    private TextField textFieldOrder, textFieldIterateNum, textFieldBatchSize, textFieldLearningRate, textFieldL1Coff,
+            textFieldL2Coff;
     @FXML
     private ComboBox<String> comboBoxOptimizer, comboBoxGradDesc;
     @FXML

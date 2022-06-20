@@ -18,8 +18,9 @@ public class AdaMax implements Optimizer {
         double ret[] = new double[grad.length];
         for (int i = 0; i < m.length; i++) {
             m[i] = beta1 * m[i] + (1 - beta1) * grad[i];
-            v[i] = Math.max(beta2, v[i] * Math.abs(grad[i]));
+            v[i] = Math.max(beta2 * v[i], Math.abs(grad[i]));
             ret[i] = alpha / (1 - Math.pow(beta1, t)) * m[i] / v[i];
+            t += 1.0;
         }
         return ret;
     }
