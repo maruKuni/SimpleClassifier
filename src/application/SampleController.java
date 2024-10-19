@@ -247,6 +247,10 @@ public class SampleController implements Initializable {
     private void drawGraph() {
         final Consumer<Point> drawDot = p -> {
             gc.setFill(Color.BLACK);
+            double xNext = p.getX() + 1;
+            double yNext = classifier.calcFunc(xNext);
+            gc.strokeLine(p.getX() + canvasMain.getWidth() / 2, p.getY() + canvasMain.getHeight() / 2,
+                    xNext + canvasMain.getWidth() / 2, yNext + canvasMain.getHeight() / 2);
             gc.fillOval(p.getX() + canvasMain.getWidth() / 2, p.getY() + canvasMain.getHeight() / 2, 2, 2);
         };
         ArrayList<Double> x = new ArrayList<Double>((int) canvasMain.getWidth());
